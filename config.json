@@ -1,0 +1,14 @@
+// Đây là file cấu hình cho bot Discord
+// Bạn cần điền các thông tin cần thiết vào đây
+// token: Token của bot Discord
+// pathGame: Đường dẫn đến thư mục dedcated server game
+// admin: Danh sách các ID người dùng Discord có quyền dùng bot
+// prefix: Tiền tố lệnh của bot
+// idChannel: Chỉnh định ID kênh Discord mà bot sẽ hoạt động, bạn cũng có thể dùng lệnh link để liên kết kênh
+{
+  "token": "",
+  "pathGame": "",
+  "admin": ["admin_1", "admin_2", "admin_3"],
+  "prefix": "!",
+  "idChannel": [""]
+}
