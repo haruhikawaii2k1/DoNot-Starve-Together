@@ -1,5 +1,30 @@
-﻿const { Client, GatewayIntentBits, EmbedBuilder, ActivityType } = require('discord.js');
+﻿const path = require('path');
 const fs = require('fs');
+
+const configPath = path.resolve(__dirname, 'config.json');
+if (!fs.existsSync(configPath)) {
+    const defaultConfig = `
+// Đây là file cấu hình cho bot Discord
+// Bạn cần điền các thông tin cần thiết vào đây
+// token: Token của bot Discord
+// pathGame: Đường dẫn đến thư mục dedcated server game
+// admin: Danh sách các ID người dùng Discord có quyền dùng bot
+// prefix: Tiền tố lệnh của bot
+// idChannel: Chỉnh định ID kênh Discord mà bot sẽ hoạt động, bạn cũng có thể dùng lệnh link để liên kết kênh
+{
+  "token": "",
+  "pathGame": "",
+  "admin": ["admin_1", "admin_2", "admin_3"],
+  "prefix": "!",
+  "idChannel": [""]
+}
+  `;
+    fs.writeFileSync(configPath, defaultConfig.trim(), 'utf8');
+    console.log('Đã tạo file config.json sửa xong file đó rồi chạy lại bot là ok');
+    process.exit(0);
+}
+
+const { Client, GatewayIntentBits, EmbedBuilder, ActivityType } = require('discord.js');
 const moment = require('moment');
 const util = require('util');
 var dt = require('./src/settings.js');
@@ -22,12 +47,13 @@ var channel;
 var version = "v3.5"
 const logFile = fs.createWriteStream('log.txt', { flags: 'a' });
 console.log = function (...args) {
-  const message = util.format(...args);
-  logFile.write(`[${new Date().toISOString()}] ${message}\n`);
-  process.stdout.write(message + '\n');
+    const message = util.format(...args);
+    logFile.write(`[${new Date().toISOString()}] ${message}\n`);
+    process.stdout.write(message + '\n');
 };
 console.log(pathIn);
 console.log(pathOut);
+
 
 // Create a new client with required intents
 const client = new Client({

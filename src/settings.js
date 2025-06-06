@@ -1,29 +1,28 @@
 const fs = require('fs');
 const path = require('path');
 const JSON5 = require('json5');
-
 let config = fs.readFileSync('./config.json', 'utf8');
 config = config.replace(/"([A-Z]:\\[^"]*)"/gi, (match, p1) => {
-  const fixedPath = p1.replace(/\\/g, '\\\\');
-  return `"${fixedPath}"`;
+    const fixedPath = p1.replace(/\\/g, '\\\\');
+    return `"${fixedPath}"`;
 });
 config = JSON5.parse(config);
 console.log(`Config loaded: ${JSON.stringify(config.pathGame)}`);
 // Chuẩn hóa đường dẫn game
 if (config.pathGame) {
-  
+
 
     const nonConvertedPathGame = config.pathGame.replace(/\\/g, '\\\\'); // Chuyển đổi dấu gạch chéo xuôi thành dấu gạch chéo ngược
-  const normalizedSlashes = path.resolve(path.normalize(nonConvertedPathGame));
+    const normalizedSlashes = path.resolve(path.normalize(nonConvertedPathGame));
     // Chuyển đổi dấu gạch chéo ngược thành dấu gạch chéo xuôi
-  const convertedPathGame = normalizedSlashes.replace(/\\\\/g, '/');
+    const convertedPathGame = normalizedSlashes.replace(/\\\\/g, '/');
 
 
-  config.pathGame = convertedPathGame;
+    config.pathGame = convertedPathGame;
 
-  console.log(`normalizedSlashes: ${normalizedSlashes}`);
-  console.log(`nonConvertedPathGame: ${nonConvertedPathGame}`);
-  console.log(`Converted pathGame: ${convertedPathGame}`);
+    console.log(`normalizedSlashes: ${normalizedSlashes}`);
+    console.log(`nonConvertedPathGame: ${nonConvertedPathGame}`);
+    console.log(`Converted pathGame: ${convertedPathGame}`);
 }
 console.log(`Path game: ${config.pathGame}`);
 
